@@ -22,7 +22,7 @@ echo "<html>
 ln -sf /data/web_static/releases/test/ /data/web_static/current
 
 # Give ownership of the /data/ folder to the ubuntu user AND group
-chown -R ubuntu:ubuntu /data/
+chown -Rh ubuntu:ubuntu /data/
 
 # Update the Nginx configuration to serve the content of
 # /data/web_static/current/ to hbnb_static
