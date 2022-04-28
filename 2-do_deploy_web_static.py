@@ -20,7 +20,8 @@ def do_deploy(archive_path):
         /data/web_static/releases/<archive filename without extension>
         on the web server """
         name_file = archive_path.split("/")[-1]
-        new_path = ("/data/web_static/releases/" + name_file.spilt(".")[0] + "/")
+        new_path = ("/data/web_static/releases/" + name_file.spilt(".")[0]
+                    + "/")
         run("mkdir -p {}".format(new_path))
         run("tar -xzf /tmp/{}.tgz -C {}".format(name_file, new_path))
 
