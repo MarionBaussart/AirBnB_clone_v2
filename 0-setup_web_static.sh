@@ -4,7 +4,6 @@
 # install Nginx
 apt update
 apt install nginx -y
-service nginx restart
 
 # create folders (-p create parent if doesn't exists)
 mkdir -p /data/web_static/shared/
@@ -28,4 +27,5 @@ chown -R ubuntu:ubuntu /data/
 # Update the Nginx configuration to serve the content of
 # /data/web_static/current/ to hbnb_static
 sed -i "/server_name _;/a\        location /hbnb_static {\n            alias /data/web_static/current;\n        }" /etc/nginx/sites-available/default
+
 service nginx restart
