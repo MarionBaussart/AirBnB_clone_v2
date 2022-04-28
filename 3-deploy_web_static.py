@@ -2,20 +2,19 @@
 """ Fabric script (based on the file 2-do_deploy_web_static.py) that creates
 and distributes an archive to your web servers, using the function deploy """
 
-import time
-from fabric.api import local, put, run, env
+from fabric.api import env, local, put, run
+from datetime import datetime
 from os.path import exists, isdir
 env.hosts = ['35.237.22.35', '35.237.118.104']
 
 
 def do_pack():
-    """ generates a .tgz archive from the contents of the web_static folder
-    and stores archives in folder versions """
+    """ create archive """
     try:
-        now = time.strftime("%Y%m%d%H%M%S")
+        date = datetime.now().strftime("%Y%m%d%H%M%S")
         if isdir("versions") is False:
-            local("mkdir -p versions")
-        file_name = "versions/web_static_{}.tgz".format(now)
+            local("mkdir versions")
+        file_name = "versions/web_static_{}.tgz".format(date)
         local("tar -cvzf {} web_static".format(file_name))
         return file_name
     except Exception:
@@ -23,7 +22,7 @@ def do_pack():
 
 
 def do_deploy(archive_path):
-    """do_deploy"""
+    """ deploy archive """
     if exists(archive_path) is False:
         return False
     try:
@@ -44,7 +43,7 @@ def do_deploy(archive_path):
 
 
 def deploy():
-    """ creates and distributes an archive to your web servers """
+    """ deploy """
     archive_path = do_pack()
     if archive_path is None:
         return False
